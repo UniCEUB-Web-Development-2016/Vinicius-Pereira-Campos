@@ -1,0 +1,148 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: vpcam
+ * Date: 13/04/2016
+ * Time: 21:04
+ */
+class User
+{
+    private $name;
+    private $lastName;
+    private $password;
+    private $email;
+    private $role;
+    private $birthday;
+    private $experience;
+    private $alias;
+    private $trophies;
+    private $level;
+
+    public function __construct($name, $lastName, $password, $email, $role, $birthday, $experience, $alias, $trophies, $level)
+    {
+        $this->setName($name);
+        $this->setLastName($lastName);
+        $this->setPassword($password);
+        $this->setEmail($email);
+        $this->setRole($role);
+        $this->setBirthday($birthday);
+        $this->setExperience($experience);
+        $this->setAlias($alias);
+        $this->setTrophies($trophies);
+        $this->setLevel($level);
+
+    }
+    public function __construct1($name, $lastName, $password, $email, $role, $birthday, $alias)
+    {
+        $this->setName($name);
+        $this->setLastName($lastName);
+        $this->setPassword($password);
+        $this->setEmail($email);
+        $this->setRole($role);
+        $this->setBirthday($birthday);
+        $this->setAlias($alias);
+
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+    }
+
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+    }
+
+    public function setExperience($experience)
+    {
+        $this->experience = $experience;
+    }
+
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
+
+    public function setTrophies($trophies)
+    {
+        $this->trophies = $trophies;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function setLevel($level)
+    {
+        $this->level = $level;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getAlias()
+    {
+        return $this->alias;
+    }
+
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    public function getExperience()
+    {
+        return $this->experience;
+    }
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function getTrophies()
+    {
+        return $this->trophies;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+}
