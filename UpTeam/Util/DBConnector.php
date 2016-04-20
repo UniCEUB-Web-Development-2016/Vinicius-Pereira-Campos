@@ -24,13 +24,24 @@ class DBConnector
         $this->setDbUser($dbUser);
         $this->setDbPassword($dbPassword);
     }
-    public function connect(){
-        $dbh = new PDO('mysql:host='.$this->getIpAddr().';port='.$this.$this->getDbPort().';dbname='.$this->getDbName(),
-            $this->getDbUser(),
-            $this->getDbPassword());
-        return $dbh;
+
+    public function connect()
+    {
+        $connString = $this->getDbType() . ':host=' . $this->getIpAddr() . ';dbname=' . $this->getDbName();
+        try {
+            $conn = new PDO($connString,
+                $this->getDbUser(),
+                $this->getDbPassword());
+            // set the PDO error mode to exception
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $conn;
+        } catch (PDOException $e) {
+            echo "Connection failed: " . $e->getMessage();
+        }
     }
-    public function closeConnection($connection){
+
+    public function closeConnection($connection)
+    {
         $connection = null;
     }
 
