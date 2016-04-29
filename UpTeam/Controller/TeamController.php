@@ -1,7 +1,7 @@
 <?php
 include_once "Model/Team.php";
 
-class TeamController implements IEntitiesController
+class TeamController /*implements IEntitiesController*/
 {
     public function register($request)
     {

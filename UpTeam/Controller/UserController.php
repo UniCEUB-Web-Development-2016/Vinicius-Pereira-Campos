@@ -1,5 +1,6 @@
 <?php
 include "Model/User.php";
+include "Util/DbConnector.php";
 
 class UserController
 {
@@ -14,8 +15,25 @@ class UserController
             $params["birthday"],
             $params["experience"],
             $params["alias"],
-            $params["trophies"]
+            $params["trophies"],
+            $params["level"]
         );
-        return var_dump($user);
+        $db = new DbConnector("localhost", "UpTeam", "mysql", "", "root", "");
+        $conn = $db->connect();
+        var_dump($conn->query($this->generateInsertQuery($user)));
     }
+    private function generateInsertQuery($user)
+    {
+        $query =  "INSERT INTO user (name, lastName, password, email, role, birthday, experience, alias, trophies, level) VALUES ('".$user->getName()."','".
+                    $user->getLastName()."','".
+                    $user->getPassword()."','".
+                    $user->getEmail()."','".
+                    $user->getRole()."','". 
+                    $user->getBirthday()."','".
+                    $user->getExperience()."','".
+                    $user->getAlias()."','". 
+                    $user->getTrophies()."','". 
+                    $user->getLevel()."')";
+        return $query;                      
+    } 
 }

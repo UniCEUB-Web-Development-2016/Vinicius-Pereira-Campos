@@ -1,3 +1,3 @@
 <?php
 include "Util/RequestRouter.php";
-(new RequestRouter)->route();
+return (new RequestRouter)->route();

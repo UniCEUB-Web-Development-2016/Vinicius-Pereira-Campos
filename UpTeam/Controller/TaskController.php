@@ -1,8 +1,8 @@
 <?php
-include_once "Model/Task";
-include_once "Model/IEntitiesController";
+include "Model/Task.php";
+include "Model/IEntitiesController.php";
 
-class TaskController extends IEntitiesController
+class TaskController /*implements IEntitiesController*/
 {
     public function register($request)
     {
