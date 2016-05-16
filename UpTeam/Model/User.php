@@ -9,6 +9,7 @@
 class User
 {
     private $name;
+    private $cpf;
     private $lastName;
     private $password;
     private $email;
@@ -18,10 +19,12 @@ class User
     private $alias;
     private $trophies;
     private $level;
+    private $active;
 
-    public function __construct($name, $lastName, $password, $email, $role, $birthday, $experience, $alias, $trophies, $level)
+    public function __construct($name, $lastName, $password, $email, $role, $birthday, $experience, $alias, $trophies, $level, $cpf)
     {
         $this->setName($name);
+        $this->setCpf($cpf);
         $this->setLastName($lastName);
         $this->setPassword($password);
         $this->setEmail($email);
@@ -31,6 +34,7 @@ class User
         $this->setAlias($alias);
         $this->setTrophies($trophies);
         $this->setLevel($level);
+
 
     }
     public function __construct1($name, $lastName, $password, $email, $role, $birthday, $alias)
@@ -48,6 +52,11 @@ class User
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    public function setCpf($cpf)
+    {
+        $this->cpf = $cpf;
     }
 
     public function setAlias($alias)
@@ -95,9 +104,19 @@ class User
         $this->level = $level;
     }
 
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getCpf()
+    {
+        return $this->cpf;
     }
 
     public function getAlias()
@@ -143,6 +162,11 @@ class User
     public function getLevel()
     {
         return $this->level;
+    }
+
+    public function getActive()
+    {
+        return $this->active;
     }
 
 }

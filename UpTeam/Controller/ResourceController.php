@@ -23,4 +23,23 @@ private function getController($resource){
         $resource = $class->newInstance();
         return $resource->register($request);
     }
+    public function searchResource($request)
+    {
+        $class = new ReflectionClass($this->getController($request->getResource()));
+        $resource = $class->newInstance();
+        return $resource->search($request);
+    }
+    public function updateResource($request)
+    {
+        $class = new ReflectionClass($this->getController($request->getResource()));
+        $resource = $class->newInstance();
+        return $resource->update($request);
+    }
+    public function deleteResource($request)
+    {
+        $class = new ReflectionClass($this->getController($request->getResource()));
+        $resource = $class->newInstance();
+        return $resource->delete($request);
+    }
+    
 }

@@ -26,13 +26,16 @@ class ControlManager
     public function routeMethod($request){
         switch($request->getMethod()){
             case "GET":
+                return $this->resourceController->searchResource($request);
                 break;
             case "POST":
                 return $this->resourceController->createResource($request);
                 break;
             case "PUT":
+                return $this->resourceController->updateResource($request);
                 break;
             case "DELETE":
+                return $this->resourceController->deleteResource($request);
                 break;
             default:
                 break;
