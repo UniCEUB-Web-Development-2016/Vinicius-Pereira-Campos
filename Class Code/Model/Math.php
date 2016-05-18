@@ -24,7 +24,7 @@ class Math
     function listCircleArea($radius){
         $areas = array();
         foreach($radius as $r){
-           array_push($areas,circleArea($r));
+            array_push($areas,circleArea($r));
         }
         return $areas;
     }

@@ -1,12 +1,12 @@
 <?php
-class User{
+class User {
     private $name;
     private $lastname;
     private $password;
     private $birthday;
     private $email;
 
-    public function __construct($name,$lastname,$email, $password, $birthday)
+    public function __construct($name, $lastname, $email, $password, $birthday)
     {
         $this.$this->setBirthday($birthday);
         $this->setEmail($email);

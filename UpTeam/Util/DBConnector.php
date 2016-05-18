@@ -15,6 +15,14 @@ class DBConnector
     private $dbUser;
     private $dbPassword;
 
+    /**
+     * @param string $ipAddr
+     * @param string $dbName
+     * @param string $dbType
+     * @param string $dbPort
+     * @param string $dbUser
+     * @param string $dbPassword
+     */
     public function __construct($ipAddr, $dbName, $dbType, $dbPort, $dbUser, $dbPassword)
     {
         $this->setDbName($dbName);
@@ -27,7 +35,7 @@ class DBConnector
 
     public function connect()
     {
-        $connString = $this->getDbType() . ':host=' . $this->getIpAddr() . ';dbname=' . $this->getDbName();
+        $connString = $this->getDbType().':host='.$this->getIpAddr().';dbname='.$this->getDbName();
         try {
             $conn = new PDO($connString,
                 $this->getDbUser(),
@@ -36,7 +44,7 @@ class DBConnector
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $conn;
         } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+            echo "Connection failed: ".$e->getMessage();
         }
     }
 
@@ -50,6 +58,9 @@ class DBConnector
         return $this->dbName;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDbPassword()
     {
         return $this->dbPassword;
@@ -65,6 +76,9 @@ class DBConnector
         return $this->dbType;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDbUser()
     {
         return $this->dbUser;

@@ -4,11 +4,11 @@ include "Util/DbConnector.php";
 
 class UserController
 {
-    private $UserParams = ["name","lastName","password","email","role","birthday","experience","alias","trophies","level","cpf"];
+    private $UserParams = ["name", "lastName", "password", "email", "role", "birthday", "experience", "alias", "trophies", "level", "cpf"];
     public function register($request)
     {
         $params = $request->getParams();
-        if($this->isValid($params)) {
+        if ($this->isValid($params)) {
             $user = new User($params["name"],
                 $params["lastName"],
                 $params["password"],
@@ -26,7 +26,7 @@ class UserController
             $conn = $db->connect();
             return $conn->query($this->generateInsertQuery($user));
         }
-        else{
+        else {
             return "Error 404";
         }
     }
@@ -48,7 +48,7 @@ class UserController
         );
         $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
         $conn = $db->connect();
-        $result = $conn->query("SELECT name, lastName, password, email, role, birthday, experience,alias, trophies, level, cpf from user Where " . $crit);
+        $result = $conn->query("SELECT name, lastName, password, email, role, birthday, experience,alias, trophies, level, cpf from user Where ".$crit);
         return $result->fetch(PDO::FETCH_ASSOC);
     }
     public function update($request)
@@ -68,17 +68,17 @@ class UserController
         );
         $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
         $conn = $db->connect();
-        return $conn->query("UPDATE USER SET name ='" . $user->getName()
-            . "', lastName = '". $user->getLastName()
-            . "', password = '" . $user->getPassword()
-            . "', email = '" . $user->getEmail()
-            . "', role = '" . $user->getRole()
-            . "', birthday = '". $user->getBirthday()
-            . "', experience = '" . $user->getExperience()
-            . "', alias = '". $user->getAlias()
-            . "',trophies = '" . $user->getTrophies()
-            . "', level =  '" . $user->getLevel()
-            . "'Where CPF = '" . $user->getCpf() . "'");
+        return $conn->query("UPDATE USER SET name ='".$user->getName()
+            . "', lastName = '".$user->getLastName()
+            . "', password = '".$user->getPassword()
+            . "', email = '".$user->getEmail()
+            . "', role = '".$user->getRole()
+            . "', birthday = '".$user->getBirthday()
+            . "', experience = '".$user->getExperience()
+            . "', alias = '".$user->getAlias()
+            . "',trophies = '".$user->getTrophies()
+            . "', level =  '".$user->getLevel()
+            . "'Where CPF = '".$user->getCpf()."'");
 
     }
     public function delete($request)
@@ -98,12 +98,12 @@ class UserController
         );
         $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
         $conn = $db->connect();
-        return $conn->query("UPDATE USER SET active = 1 Where CPF = '" . $user->getCpf() . "'");
+        return $conn->query("UPDATE USER SET active = 1 Where CPF = '".$user->getCpf()."'");
     }
     private function generateInsertQuery($user)
     {
 
-        $query =  "INSERT INTO user (name, lastName, password, email, role, birthday, experience, alias, trophies, level, cpf) VALUES ('".
+        $query = "INSERT INTO user (name, lastName, password, email, role, birthday, experience, alias, trophies, level, cpf) VALUES ('".
                     $user->getName()."','".
                     $user->getLastName()."','".
                     $user->getPassword()."','".
@@ -120,16 +120,16 @@ class UserController
     private function generateCriteria($params)
     {
         $criteria = "";
-        foreach($params as $key => $value)
+        foreach ($params as $key => $value)
         {
-            $criteria = $criteria . $key." LIKE '%".$value."%' OR ";
+            $criteria = $criteria.$key." LIKE '%".$value."%' OR ";
         }
         return substr($criteria, 0, -4);
     }
-    private function isValid($params){
+    private function isValid($params) {
         $keys = array_keys($params);
         $diff = array_intersect($keys, $this->UserParams);
-        if (count($diff) == count($params)){
+        if (count($diff) == count($params)) {
             return true;
         }
         return false;
