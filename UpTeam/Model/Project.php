@@ -8,14 +8,16 @@
  */
 class Project
 {
+    private $id;
     private $name;
     private $team;
     private $createdOn;
     private $estimatedDeadline;
     private $description;
 
-    public function __construct($name, $team, $createdOn, $estimatedDeadline, $description)
+    public function __construct($id, $name, $team, $createdOn, $estimatedDeadline, $description)
     {
+        $this->setId($id);
         $this->setName($name);
         $this->setTeam($team);
         $this->setCreatedOn($createdOn);
@@ -26,6 +28,11 @@ class Project
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     public function setCreatedOn($createdOn)
@@ -50,6 +57,11 @@ class Project
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getCreatedOn()

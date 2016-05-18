@@ -2,6 +2,7 @@
 
 class Task
 {
+    private $id;
     private $name;
     private $description;
     private $estimate;
@@ -12,8 +13,9 @@ class Task
     private $project;
     private $createdOn;
 
-    public function __construct($name, $description, $estimate, $difficulty, $owner, $createdby, $state, $project, $createdOn)
+    public function __construct($id, $name, $description, $estimate, $difficulty, $owner, $createdby, $state, $project, $createdOn)
     {
+        $this->setId($id);
         $this->setName($name);
         $this->setDescription($description);
         $this->setEstimate($estimate);
@@ -71,6 +73,10 @@ class Task
         $this->createdOn = $createdOn;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
     public function getCreatedBy()
     {
         return $this->createdBy;
@@ -114,6 +120,11 @@ class Task
     public function getCreatedOn()
     {
         return $this->createdOn;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
 }
