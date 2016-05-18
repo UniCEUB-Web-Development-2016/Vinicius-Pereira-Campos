@@ -7,7 +7,7 @@ class Team
     private $createdBy;
     private $createdOn;
 
-    public function __construct($id,$name, $createdBy, $createdOn)
+    public function __construct($id, $name, $createdBy, $createdOn)
     {
             $this->setId($id);
             $this->setName($name);

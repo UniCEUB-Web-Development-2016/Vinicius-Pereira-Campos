@@ -23,6 +23,10 @@ class ControlManager
         
         return $this->routeMethod($request);
     }
+
+    /**
+     * @param Request $request
+     */
     public function routeMethod($request){
         switch($request->getMethod()){
             case "GET":

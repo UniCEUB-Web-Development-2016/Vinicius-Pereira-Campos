@@ -14,7 +14,7 @@ class ResourceController
             "task" => "TaskController",
             "project" => "ProjectController"
         ];
-private function getController($resource){
+private function getController($resource) {
     return $this->controlMap[strtolower($resource)];
 }
     public function createResource($request)
