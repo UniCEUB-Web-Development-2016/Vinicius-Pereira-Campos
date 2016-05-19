@@ -89,31 +89,49 @@ class DBConnector
         return $this->ipAddr;
     }
 
+    /**
+     * @param string $dbName
+     */
     public function setDbName($dbName)
     {
         $this->dbName = $dbName;
     }
 
+    /**
+     * @param string $dbPassword
+     */
     public function setDbPassword($dbPassword)
     {
         $this->dbPassword = $dbPassword;
     }
 
+    /**
+     * @param string $dbPort
+     */
     public function setDbPort($dbPort)
     {
         $this->dbPort = $dbPort;
     }
 
+    /**
+     * @param string $dbType
+     */
     public function setDbType($dbType)
     {
         $this->dbType = $dbType;
     }
 
+    /**
+     * @param string $dbUser
+     */
     public function setDbUser($dbUser)
     {
         $this->dbUser = $dbUser;
     }
 
+    /**
+     * @param string $ipAddr
+     */
     public function setIpAddr($ipAddr)
     {
         $this->ipAddr = $ipAddr;
