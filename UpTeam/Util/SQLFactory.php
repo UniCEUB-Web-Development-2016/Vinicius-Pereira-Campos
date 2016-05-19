@@ -10,35 +10,39 @@ class SQLFactory
 {
     private $table;
     private $objectParams;
+
+    /**
+     * @param string $table
+     */
     public function __construct($table, $objectParams)
     {
         $this->setTable($table);
         $this->setObjectParams($objectParams);
     }
 
-    public function generateInsert($params){
-        return "INSERT INTO " . $this->table . "(" . $this->generateColumns($this->objectParams) . ") VALUES (" . $this->generateValues($params) . ")";
+    public function generateInsert($params) {
+        return "INSERT INTO ".$this->table."(".$this->generateColumns($this->objectParams).") VALUES (".$this->generateValues($params).")";
     }
-    public function generateSelect($params){
-        return "SELECT " . $this->generateColumns($this->objectParams) . " FROM " .$this->table . " WHERE " . $this->generateCriteria($params);
+    public function generateSelect($params) {
+        return "SELECT ".$this->generateColumns($this->objectParams)." FROM ".$this->table." WHERE ".$this->generateCriteria($params);
     }
-    public function generateUpdate($params, $id){
-        return "UPDATE " . $this->table . " SET " . $this->generateValues($params) . " WHERE ID = " . $id;
+    public function generateUpdate($params, $id) {
+        return "UPDATE ".$this->table." SET ".$this->generateValues($params)." WHERE ID = ".$id;
     }
-    public function generateDelete($id){
-        return "UPDATE " . $this->table . " SET ACTIVE = 1 WHERE ID = " . $id;
+    public function generateDelete($id) {
+        return "UPDATE ".$this->table." SET ACTIVE = 1 WHERE ID = ".$id;
     }
-    private function generateColumns(){
+    private function generateColumns() {
         $columns = "";
-        foreach($this->objectParams as $key => $value){
-            $columns = $columns . $value . ", ";
+        foreach ($this->objectParams as $key => $value) {
+            $columns = $columns.$value.", ";
         }
         return substr($columns, 0, -2);
     }
-    private function generateValues($params){
+    private function generateValues($params) {
         $values = "";
-        foreach($params as $key => $value){
-            $values = $values . $key ." = " . $value . ", ";
+        foreach ($params as $key => $value) {
+            $values = $values.$key." = ".$value.", ";
             return substr($values, 0, -2);
         }
     }
