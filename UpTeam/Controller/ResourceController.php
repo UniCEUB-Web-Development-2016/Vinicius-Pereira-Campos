@@ -17,24 +17,40 @@ class ResourceController
     private function getController($resource) {
         return $this->controlMap[strtolower($resource)];
     }
+
+    /**
+     * @param Request $request
+     */
     public function createResource($request, $conn, $params)
     {
         $class = new ReflectionClass($this->getController($request->getResource()));
         $resource = $class->newInstance($conn);
         return $resource->register($params);
     }
+
+    /**
+     * @param Request $request
+     */
     public function searchResource($request, $conn)
     {
         $class = new ReflectionClass($this->getController($request->getResource()));
         $resource = $class->newInstance($conn);
         return $resource->search($params);
     }
+
+    /**
+     * @param Request $request
+     */
     public function updateResource($request, $conn)
     {
         $class = new ReflectionClass($this->getController($request->getResource()));
         $resource = $class->newInstance($conn);
         return $resource->update($params);
     }
+
+    /**
+     * @param Request $request
+     */
     public function deleteResource($request, $conn)
     {
         $class = new ReflectionClass($this->getController($request->getResource()));

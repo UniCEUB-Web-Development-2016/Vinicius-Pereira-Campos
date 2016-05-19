@@ -30,8 +30,8 @@ class ControlManager
     /**
      * @param Request $request
      */
-    public function routeMethod($request, $params){
-        switch($request->getMethod()){
+    public function routeMethod($request, $params) {
+        switch ($request->getMethod()) {
             case "GET":
                 return $this->resourceController->searchResource($request, $this->conn, $params);
                 break;

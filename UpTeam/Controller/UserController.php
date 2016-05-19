@@ -5,7 +5,7 @@ include_once "Util/SQLFactory.php";
 
 class UserController
 {
-    private $UserParams = ["id","name", "lastName", "password", "email", "role", "birthday", "experience", "alias", "trophies", "level", "cpf"];
+    private $UserParams = ["id", "name", "lastName", "password", "email", "role", "birthday", "experience", "alias", "trophies", "level", "cpf"];
     private $userSQLFactory;
     private $conn;
 
