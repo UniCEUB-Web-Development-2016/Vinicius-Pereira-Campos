@@ -2,93 +2,50 @@
 include_once "Model/Project.php";
 class ProjectController
 {
-    private $TeamParams = ["id", "name", "team", "createdOn", "estimatedDeadline", "description"];
-    public function register($request)
+    private $ProjectParams = ["id", "name", "team", "createdOn", "estimatedDeadline", "description"];
+    private $conn;
+
+    public function __construct($conn)
+    {
+        $this->conn = $conn;
+        $this->taskSQLFactory = new SQLFactory("Task", $this->ProjectParams);
+    }
+
+    public function register($params)
     {
         $params = $request->getParams();
         if ($this->isValid($params)) {
-            $project = new Project($params["id"],
-                $params["name"],
-                $params["team"],
-                $params["createdOn"],
-                $params["estimatedDeadline"],
-                $params["description"]
-            );
-
-            $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-            $conn = $db->connect();
-            return $conn->query($this->generateInsertQuery($project));
+            return $this->conn->query($this->generateInsertQuery($params));
         }
         else {
             return "Error 404";
         }
     }
-    public function search($request)
+
+    public function search($params)
     {
-        $params = $request->getParams();
-        $crit = $this->generateCriteria($params);
-        $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-        $conn = $db->connect();
         $result = $conn->query("SELECT name, team, createdOn, estimatedDeadline, description from Project Where ".$crit);
         return $result->fetch(PDO::FETCH_ASSOC);
     }
-    public function update($request)
-    {
-        $params = $request->getParams();
-        $project = new Project($params["id"],
-            $params["name"],
-            $params["team"],
-            $params["createdOn"],
-            $params["estimatedDeadline"],
-            $params["description"]
-        );
 
-        $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-        $conn = $db->connect();
+    public function update($params)
+    {
         return $conn->query("UPDATE Project SET name ='".$project->getName()
             . "', team = '".$project->getTeam()
             . "', createdOn = '".$project->getCreatedOn()
             . "', estimatedDeadline = '".$project->getEstimatedDeadline()
             . "', description = '".$project->getDescription()
             . "'Where id = '".$project->getId()."'");
-
     }
+
     public function delete($request)
     {
-        $params = $request->getParams();
-        $project = new Project($params["id"],
-            $params["name"],
-            $params["team"],
-            $params["createdOn"],
-            $params["estimatedDeadline"],
-            $params["description"]
-        );
-        $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-        $conn = $db->connect();
-        return $conn->query("UPDATE Project SET active = 1 Where id = '".$project->getId()."'");
+        return $conn->query($this->taskSQLFactory->generateDelete($params["id"]));
     }
-    private function generateInsertQuery($project)
-    {
-        $query = "INSERT INTO Project (name, team, createdOn, estimatedDeadline, description) VALUES ('".
-            $project->getName()."','".
-            $project->getTeam()."','".
-            $project->getCreatedOn()."','".
-            $project->getEstimatedDeadline()."','".
-            $project->getDescription()."')";
-        return $query;
-    }
-    private function generateCriteria($params)
-    {
-        $criteria = "";
-        foreach ($params as $key => $value)
-        {
-            $criteria = $criteria.$key." LIKE '%".$value."%' OR ";
-        }
-        return substr($criteria, 0, -4);
-    }
+
     private function isValid($params) {
         $keys = array_keys($params);
-        $diff = array_intersect($keys, $this->TeamParams);
+        $diff = array_intersect($keys, $this->ProjectParams);
         if (count($diff) == count($params)) {
             return true;
         }

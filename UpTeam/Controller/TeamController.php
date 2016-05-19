@@ -4,85 +4,40 @@ include_once "Model/Team.php";
 class TeamController
 {
     private $TeamParams = ["id", "name", "createdOn", "createdBy"];
-    public function register($request)
-    {
-        $params = $request->getParams();
-        if ($this->isValid($params)) {
-            $team = new Team($params["id"],
-                $params["name"],
-                $params["createdBy"],
-                $params["createdOn"]
-            );
+    private $teamSQLFactory;
+    private $conn;
 
-            $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-            $conn = $db->connect();
-            return $conn->query($this->generateInsertQuery($team));
+    public function __construct($conn)
+    {   
+        $this->teamSQLFactory = new SQLFactory("team", $this->TeamParams);
+        $this->conn = $conn;
+    }
+    public function register($params)
+    {
+        if ($this->isValid($params)) {
+            return $this->conn->query($this->teamSQLFactory->generateInsert($params));
         }
         else {
             return "Error 404";
         }
     }
-    public function search($request)
+
+    public function search($params)
     {
-        $params = $request->getParams();
-        $crit = $this->generateCriteria($params);
-        $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-        $conn = $db->connect();
-        $result = $conn->query("SELECT name, createdOn, createdBy from team Where ".$crit);
+        $result = $this->conn->query($this->teamSQLFactory->generateSelect($params));
         return $result->fetch(PDO::FETCH_ASSOC);
     }
-    public function update($request)
-    {
-        $params = $request->getParams();
-        var_dump($params);
-        $team = new Team($params["id"],
-            $params["name"],
-            $params["createdBy"],
-            $params["createdOn"]
-        );
-        var_dump($team);
 
-        $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-        $conn = $db->connect();
-        return $conn->query("UPDATE Team SET name ='" . $team->getName()
-            . "', createdBy = '". $team->getCreatedBy()
-            . "', createdOn = '" . $team->getCreatedOn()
-            . "'Where id = '" . $team->getId() . "'");
-
-    }
-    public function delete($request)
+    public function update($params)
     {
-        $params = $request->getParams();
-        $team = new Team ($params["id"],
-            $params["name"],
-            $params["createdOn"],
-            $params["createdBy"]
-        );
-        $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-        $conn = $db->connect();
-        return $conn->query("UPDATE Team SET active = 1 Where id = '" . $team->getId() . "'");
+        return $this->conn->query($this->teamSQLFactory->generateUpdate($params));
     }
 
-    /**
-     * @param Team $team
-     */
-    private function generateInsertQuery($team)
+    public function delete($params)
     {
-        $query =  "INSERT INTO Team (name, createdBy, createdOn) VALUES ('".
-            $team->getName()."','".
-            $team->getCreatedBy()."','".
-            $team->getCreatedOn()."')";
-        return $query;
+        return $this->conn->query($this->teamSQLFactory->generateDelete($params, $params["id"]));
     }
-    private function generateCriteria($params)
-    {
-        $criteria = "";
-        foreach ($params as $key => $value)
-        {
-            $criteria = $criteria.$key." LIKE '%".$value."%' OR ";
-        }
-        return substr($criteria, 0, -4);
-    }
+
     private function isValid($params) {
         $keys = array_keys($params);
         $diff = array_intersect($keys, $this->TeamParams);

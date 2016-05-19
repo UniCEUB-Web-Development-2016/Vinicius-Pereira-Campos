@@ -14,32 +14,32 @@ class ResourceController
             "task" => "TaskController",
             "project" => "ProjectController"
         ];
-private function getController($resource) {
-    return $this->controlMap[strtolower($resource)];
-}
-    public function createResource($request)
-    {
-        $class = new ReflectionClass($this->getController($request->getResource()));
-        $resource = $class->newInstance();
-        return $resource->register($request);
+    private function getController($resource) {
+        return $this->controlMap[strtolower($resource)];
     }
-    public function searchResource($request)
+    public function createResource($request, $conn, $params)
     {
         $class = new ReflectionClass($this->getController($request->getResource()));
-        $resource = $class->newInstance();
-        return $resource->search($request);
+        $resource = $class->newInstance($conn);
+        return $resource->register($params);
     }
-    public function updateResource($request)
+    public function searchResource($request, $conn)
     {
         $class = new ReflectionClass($this->getController($request->getResource()));
-        $resource = $class->newInstance();
-        return $resource->update($request);
+        $resource = $class->newInstance($conn);
+        return $resource->search($params);
     }
-    public function deleteResource($request)
+    public function updateResource($request, $conn)
     {
         $class = new ReflectionClass($this->getController($request->getResource()));
-        $resource = $class->newInstance();
-        return $resource->delete($request);
+        $resource = $class->newInstance($conn);
+        return $resource->update($params);
+    }
+    public function deleteResource($request, $conn)
+    {
+        $class = new ReflectionClass($this->getController($request->getResource()));
+        $resource = $class->newInstance($conn);
+        return $resource->delete($params);
     }
     
 }

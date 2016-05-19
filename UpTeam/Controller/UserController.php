@@ -7,135 +7,38 @@ class UserController
 {
     private $UserParams = ["id","name", "lastName", "password", "email", "role", "birthday", "experience", "alias", "trophies", "level", "cpf"];
     private $userSQLFactory;
+    private $conn;
 
-    public function __construct()
-    {
-
+    public function __construct($conn)
+    {   
+        $this->userSQLFactory = new SQLFactory("user", $this->UserParams);
+        $this->conn = $conn;
     }
 
-    public function register($request)
+    public function register($params)
     {
-        $params = $request->getParams();
         if ($this->isValid($params)) {
-            $user = new User($params["name"],
-                $params["lastName"],
-                $params["password"],
-                $params["email"],
-                $params["role"],
-                $params["birthday"],
-                $params["experience"],
-                $params["alias"],
-                $params["trophies"],
-                $params["level"],
-                $params["cpf"]
-            );
-
-            $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-            $conn = $db->connect();
-            return $conn->query($this->generateInsertQuery($user));
+            return $this->conn->query($this->userSQLFactory->generateInsert($params));
         } else {
             return "Error 404";
         }
     }
 
-    public function search($request)
+    public function search($params)
     {
-        $params = $request->getParams();
-        $crit = $this->generateCriteria($params);
-        $user = new User($params["name"],
-            $params["lastName"],
-            $params["password"],
-            $params["email"],
-            $params["role"],
-            $params["birthday"],
-            $params["experience"],
-            $params["alias"],
-            $params["trophies"],
-            $params["level"],
-            $params["cpf"]
-        );
-        $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-        $conn = $db->connect();
-        $result = $conn->query("SELECT name, lastName, password, email, role, birthday, experience,alias, trophies, level, cpf from user Where " . $crit);
+        $result = $this->conn->query($this->userSQLFactory->generateSelect($params));
         return $result->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($request)
+    public function update($params)
     {
-        $params = $request->getParams();
-        $user = new User($params["name"],
-            $params["lastName"],
-            $params["password"],
-            $params["email"],
-            $params["role"],
-            $params["birthday"],
-            $params["experience"],
-            $params["alias"],
-            $params["trophies"],
-            $params["level"],
-            $params["cpf"]
-        );
-        $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-        $conn = $db->connect();
-        return $conn->query("UPDATE USER SET name ='" . $user->getName()
-            . "', lastName = '" . $user->getLastName()
-            . "', password = '" . $user->getPassword()
-            . "', email = '" . $user->getEmail()
-            . "', role = '" . $user->getRole()
-            . "', birthday = '" . $user->getBirthday()
-            . "', experience = '" . $user->getExperience()
-            . "', alias = '" . $user->getAlias()
-            . "',trophies = '" . $user->getTrophies()
-            . "', level =  '" . $user->getLevel()
-            . "'Where CPF = '" . $user->getCpf() . "'");
+        return $this->conn->query($this->userSQLFactory->generateUpdate($params));
 
     }
 
-    public function delete($request)
+    public function delete($params)
     {
-        $params = $request->getParams();
-        $user = new User($params["name"],
-            $params["lastName"],
-            $params["password"],
-            $params["email"],
-            $params["role"],
-            $params["birthday"],
-            $params["experience"],
-            $params["alias"],
-            $params["trophies"],
-            $params["level"],
-            $params["cpf"]
-        );
-        $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
-        $conn = $db->connect();
-        return $conn->query("UPDATE USER SET active = 1 Where CPF = '" . $user->getCpf() . "'");
-    }
-
-    private function generateInsertQuery($user)
-    {
-
-        $query = "INSERT INTO user (name, lastName, password, email, role, birthday, experience, alias, trophies, level, cpf) VALUES ('" .
-            $user->getName() . "','" .
-            $user->getLastName() . "','" .
-            $user->getPassword() . "','" .
-            $user->getEmail() . "','" .
-            $user->getRole() . "','" .
-            $user->getBirthday() . "','" .
-            $user->getExperience() . "','" .
-            $user->getAlias() . "','" .
-            $user->getTrophies() . "','" .
-            $user->getLevel() . "','" .
-            $user->getCpf() . "')";
-        return $query;
-    }
-
-    private function generateCriteria($params)
-    {
-        $criteria = "";
-        foreach ($params as $key => $value) {
-            $criteria = $criteria . $key . " LIKE '%" . $value . "%' OR ";
-        }
-        return substr($criteria, 0, -4);
+        return $this->conn->query($this->userSQLFactory->generateDelete($params, $params["id"]));
     }
 
     private function isValid($params)

@@ -6,11 +6,14 @@ class ControlManager
 {
     private $resourceController;
     private $requestController;
+    private $conn;
 
-    public function __construct()
+    public function __construct($conn)
     {
         $this->resourceController = new ResourceController();
         $this->requestController = new RequestController();
+        $this->conn = $db = new DbConnector("localhost", "dbupteam", "mysql", "", "root", "");
+        $this->conn = $db->connect();
     }
 
     public function getResource()
@@ -20,26 +23,26 @@ class ControlManager
             $_SERVER["REQUEST_URI"], 
             $_SERVER["SERVER_ADDR"], 
             $_SERVER["SERVER_PROTOCOL"]);
-        
-        return $this->routeMethod($request);
+        $params = $request->getParams();
+        return $this->routeMethod($request, $params);
     }
 
     /**
      * @param Request $request
      */
-    public function routeMethod($request){
+    public function routeMethod($request, $params){
         switch($request->getMethod()){
             case "GET":
-                return $this->resourceController->searchResource($request);
+                return $this->resourceController->searchResource($request, $this->conn, $params);
                 break;
             case "POST":
-                return $this->resourceController->createResource($request);
+                return $this->resourceController->createResource($request, $this->conn, $params);
                 break;
             case "PUT":
-                return $this->resourceController->updateResource($request);
+                return $this->resourceController->updateResource($request, $this->conn, $params);
                 break;
             case "DELETE":
-                return $this->resourceController->deleteResource($request);
+                return $this->resourceController->deleteResource($request, $this->conn, $params);
                 break;
             default:
                 break;
