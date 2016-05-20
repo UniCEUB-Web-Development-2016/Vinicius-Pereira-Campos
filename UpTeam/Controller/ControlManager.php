@@ -8,7 +8,7 @@ class ControlManager
     private $requestController;
     private $conn;
 
-    public function __construct($conn)
+    public function __construct()
     {
         $this->resourceController = new ResourceController();
         $this->requestController = new RequestController();

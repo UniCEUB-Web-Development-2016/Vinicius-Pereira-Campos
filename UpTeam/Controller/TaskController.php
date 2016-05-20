@@ -35,7 +35,7 @@ class TaskController /*implements IEntitiesController*/
 
     public function delete($params)
     {
-        return $conn->query($this->conn->query($this->taskSQLFactory->generateDelete($params["id"]));
+        return $conn->query($this->conn->query($this->taskSQLFactory->generateDelete($params["id"])));
     }
 
     private function isValid($params)

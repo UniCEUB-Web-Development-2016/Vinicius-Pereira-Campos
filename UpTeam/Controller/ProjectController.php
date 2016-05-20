@@ -4,18 +4,18 @@ class ProjectController
 {
     private $ProjectParams = ["id", "name", "team", "createdOn", "estimatedDeadline", "description"];
     private $conn;
+    private $projectSQLFactory
 
     public function __construct($conn)
     {
         $this->conn = $conn;
-        $this->taskSQLFactory = new SQLFactory("Task", $this->ProjectParams);
+        $this->projectSQLFactory = new SQLFactory("Task", $this->ProjectParams);
     }
 
     public function register($params)
     {
-        $params = $request->getParams();
         if ($this->isValid($params)) {
-            return $this->conn->query($this->generateInsertQuery($params));
+            return $this->conn->query($this->projectSQLFactory->generateInsert($params));
         }
         else {
             return "Error 404";
@@ -24,23 +24,18 @@ class ProjectController
 
     public function search($params)
     {
-        $result = $conn->query("SELECT name, team, createdOn, estimatedDeadline, description from Project Where ".$crit);
+        $result = $this->conn->query($this->$this->projectSQLFactory->generateSelect($params));
         return $result->fetch(PDO::FETCH_ASSOC);
     }
 
     public function update($params)
     {
-        return $conn->query("UPDATE Project SET name ='".$project->getName()
-            . "', team = '".$project->getTeam()
-            . "', createdOn = '".$project->getCreatedOn()
-            . "', estimatedDeadline = '".$project->getEstimatedDeadline()
-            . "', description = '".$project->getDescription()
-            . "'Where id = '".$project->getId()."'");
+        return $this->conn->query($this->projectSQLFactory->generateUpdate($params,$params["id"]));
     }
 
-    public function delete($request)
+    public function delete($params)
     {
-        return $conn->query($this->taskSQLFactory->generateDelete($params["id"]));
+        return $this->conn->query($this->projectSQLFactory->generateDelete($params["id"]));
     }
 
     private function isValid($params) {

@@ -30,12 +30,12 @@ class TeamController
 
     public function update($params)
     {
-        return $this->conn->query($this->teamSQLFactory->generateUpdate($params));
+        return $this->conn->query($this->teamSQLFactory->generateUpdate($params, $params["id"]));
     }
 
     public function delete($params)
     {
-        return $this->conn->query($this->teamSQLFactory->generateDelete($params, $params["id"]));
+        return $this->conn->query($this->teamSQLFactory->generateDelete($params["id"]));
     }
 
     private function isValid($params) {

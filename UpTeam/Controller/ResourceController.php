@@ -31,7 +31,7 @@ class ResourceController
     /**
      * @param Request $request
      */
-    public function searchResource($request, $conn)
+    public function searchResource($request, $conn,  $params)
     {
         $class = new ReflectionClass($this->getController($request->getResource()));
         $resource = $class->newInstance($conn);
@@ -41,7 +41,7 @@ class ResourceController
     /**
      * @param Request $request
      */
-    public function updateResource($request, $conn)
+    public function updateResource($request, $conn, $params)
     {
         $class = new ReflectionClass($this->getController($request->getResource()));
         $resource = $class->newInstance($conn);
@@ -51,7 +51,7 @@ class ResourceController
     /**
      * @param Request $request
      */
-    public function deleteResource($request, $conn)
+    public function deleteResource($request, $conn,  $params)
     {
         $class = new ReflectionClass($this->getController($request->getResource()));
         $resource = $class->newInstance($conn);

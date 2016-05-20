@@ -32,13 +32,13 @@ class UserController
 
     public function update($params)
     {
-        return $this->conn->query($this->userSQLFactory->generateUpdate($params));
+        return $this->conn->query($this->userSQLFactory->generateUpdate($params, $params["id"]));
 
     }
 
     public function delete($params)
     {
-        return $this->conn->query($this->userSQLFactory->generateDelete($params, $params["id"]));
+        return $this->conn->query($this->userSQLFactory->generateDelete($params["id"]));
     }
 
     private function isValid($params)
