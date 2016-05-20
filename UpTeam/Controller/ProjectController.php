@@ -9,7 +9,7 @@ class ProjectController
     public function __construct($conn)
     {
         $this->conn = $conn;
-        $this->projectSQLFactory = new SQLFactory("Task", $this->ProjectParams);
+        $this->projectSQLFactory = new SQLFactory("Project", $this->ProjectParams);
     }
 
     public function register($params)

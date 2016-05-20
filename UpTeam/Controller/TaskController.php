@@ -7,6 +7,7 @@ class TaskController /*implements IEntitiesController*/
     private $TeamParams = ["id", "name", "description", "estimate", "difficulty", "owner", "createdBy", "state", "project", "createdOn"];
     private $conn;
     private $taskSQLFactory;
+
     public function __construct($conn)
     {
         $this->conn = $conn;
@@ -30,12 +31,12 @@ class TaskController /*implements IEntitiesController*/
 
     public function update($params)
     {
-        return $this->conn->query($this->taskSQLFactory->generateUpdate($params), $params["id"]);
+        return $this->conn->query($this->taskSQLFactory->generateUpdate($params, $params["id"]));
     }
 
     public function delete($params)
     {
-        return $conn->query($this->conn->query($this->taskSQLFactory->generateDelete($params["id"])));
+        return $this->conn->query($this->taskSQLFactory->generateDelete($params["id"]));
     }
 
     private function isValid($params)
