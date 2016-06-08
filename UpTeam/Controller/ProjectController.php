@@ -1,10 +1,11 @@
 <?php
 include_once "Model/Project.php";
+
 class ProjectController
 {
     private $ProjectParams = ["id", "name", "team", "createdOn", "estimatedDeadline", "description"];
     private $conn;
-    private $projectSQLFactory
+    private $projectSQLFactory;
 
     public function __construct($conn)
     {

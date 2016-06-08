@@ -1,8 +1,7 @@
 <?php
 include "Model/Task.php";
-include "Model/IEntitiesController.php";
 
-class TaskController /*implements IEntitiesController*/
+class TaskController
 {
     private $TeamParams = ["id", "name", "description", "estimate", "difficulty", "owner", "createdBy", "state", "project", "createdOn"];
     private $conn;
@@ -26,7 +25,8 @@ class TaskController /*implements IEntitiesController*/
     public function search($params)
     {
         $result = $this->conn->query($this->taskSQLFactory->generateSelect($params));
-        return $result->fetch(PDO::FETCH_ASSOC);
+        var_dump($result);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function update($params)

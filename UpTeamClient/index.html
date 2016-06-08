@@ -1,51 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="UpTeam">
   <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="img/favicon-16x16.png">
+    <script type="text/javascript" src="lib/sweetAlert/sweetalert2.min.js" ></script>
+    <link rel="stylesheet" type="text/css" href="lib/sweetAlert/sweetalert2.min.css">
+    <script type="text/javascript" src="js/Angularjs/angular.min.js" ></script>
+    <script type="text/javascript" src="js/Angularjs/AngularController/controlManager.js" ></script>
+    <script type="text/javascript" src="js/Angularjs/AngularController/taskController.js" ></script>
+    
 
-    <title>Signin Template for Bootstrap</title>
+
+    <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/signin.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
 
   </head>
 
-  <body id="particles-js"> 
+  <body ng-controller="TaskCtrl">
+   <nav ng-include="'view/navbar.html'"></nav>
 
+   <div class="main">
+   <h1>{{PageTitle}}</h1>
+      <div ng-include="'view/lateralbar.html'" class="col-md-3"></div>
+   
+    <div class="jumbotron col-md-9" ng-if="create">
+      <input type="text" class="form-control" placeholder="Name" ng-model="task.name">
+      <input type="text" class="form-control" placeholder="Description" ng-model="task.description">
+      <input type="text" class="form-control" placeholder="Estimate" ng-model="task.estimate">
+     <input type="text" class="form-control" placeholder="Difficulty" ng-model="task.difficulty">
+     <input type="text" class="form-control" placeholder="Owner" ng-model="task.owner">
+     <input type="text" class="form-control" placeholder="Created By" ng-model="task.createBy">
+     <input type="text" class="form-control" placeholder="State" ng-model="task.state">
+     <input type="text" class="form-control" placeholder="Project" ng-model="task.project">
+     <input type="date" class="form-control" ng-model="task.createdOn">
+     <button class="btn btn-primary btn-block" ng-click="addTask(task)">Create Task</button>
+     </div>
+  
+     <div class="jumbotron col-md-9" ng-if="list">
+      <table class="table">
+        <tr>
+          <th></th>
+          <th>#</th>
+          <th>Name</th>
+          <th>Estimate</th>
+          <th>Difficulty</th>
+          <th>Owner</th>
+          <th>Created By</th>
+          <th>State</th>
+          <th>Project</th>
+          <th></th>
+        </tr>
+        <tr ng-repeat="task in tasks" ng-class="{'selected': task.selecionada}">
+          <td><input type="checkbox" ng-model="task.selecionada"></td>
+          <td>{{task.id}}</td>
+          <td>{{task.name}}</td>
+          <td>{{task.estimate}}</td>
+          <td>{{task.dfficulty}}</td>
+          <td>{{task.owner}}</td>
+          <td>{{task.createdBy}}</td>
+          <td>{{task.state}}</td>
+          <td>{{task.project}}</td>
+          <td><a ng-click="setDetails(task.id);">Details</a></td>
 
-    <div class="container">
-      <form class="form-signin">
-		<img src="img/Up Team-logo.png" style="float:center"/>
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
-
-    </div> <!-- /container -->
-
-<!-- scripts -->
-<script src="js/particles.min.js"></script>
-<script src="js/app.js"></script>
-
-<!-- stats.js -->
-<script src="js/lib/stats.js"></script>
-	
+        </tr>
+      </table>
+     </div>
+   
+    <div class="jumbotron col-md-9" ng-if="details">
+    <input type="text" class="form-control" placeholder="Id" ng-model="task.id" hidden>
+      <input type="text" class="form-control" placeholder="Name" ng-model="task.name">
+      <input type="text" class="form-control" placeholder="Description" ng-model="task.description">
+      <input type="text" class="form-control" placeholder="Estimate" ng-model="task.estimate">
+     <input type="text" class="form-control" placeholder="Difficulty" ng-model="task.difficulty">
+     <input type="text" class="form-control" placeholder="Owner" ng-model="task.owner">
+     <input type="text" class="form-control" placeholder="Created By" ng-model="task.createBy">
+     <input type="text" class="form-control" placeholder="State" ng-model="task.state">
+     <input type="text" class="form-control" placeholder="Project" ng-model="task.project">
+     <input type="date" class="form-control" ng-model="task.createdOn">
+     <button class="btn btn-primary btn-block" ng-click="">Update Task</button>
+     </div>
+  
+   </div>
   </body>
 </html>

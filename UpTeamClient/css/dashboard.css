@@ -103,3 +103,37 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+.form-control{
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+  width:60%;
+}
+.btn{
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+  width:60%;
+}
+.selected{
+  color: #000000;
+  font-weight: bold;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #ffcc00;
+  *background-color: #ffcc00;
+  background-repeat: repeat-x;
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.jumbotron{
+  width: 60%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border-top-width: 5px;
+}
+.nav-stacked{
+  margin-top: 20px;
+}
