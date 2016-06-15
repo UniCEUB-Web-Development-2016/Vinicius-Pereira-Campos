@@ -4,6 +4,9 @@ include_once "Controller/UserController.php";
 include_once "Controller/TaskController.php";
 include_once "Controller/TeamController.php";
 include_once "Controller/ProjectController.php";
+include_once "Controller/DifficultyController.php";
+include_once "Controller/LoginController.php";
+include_once "Controller/StateController.php";
 
 class ResourceController
 {
@@ -12,7 +15,10 @@ class ResourceController
             "team" => "TeamController",
             "user" => "UserController",
             "task" => "TaskController",
-            "project" => "ProjectController"
+            "project" => "ProjectController",
+            "difficulty" => "DifficultyController",
+            "login" => "LoginController",
+            "state" => "StateController"
         ];
     private function getController($resource) {
         return $this->controlMap[strtolower($resource)];

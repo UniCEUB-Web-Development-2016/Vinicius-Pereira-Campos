@@ -3,7 +3,7 @@ include "Model/Task.php";
 
 class TaskController
 {
-    private $TeamParams = ["id", "name", "description", "estimate", "difficulty", "owner", "createdBy", "state", "project", "createdOn"];
+    private $TeamParams = [ "name", "description", "estimate", "difficulty", "owner", "createdBy", "state", "project", "createdOn"];
     private $conn;
     private $taskSQLFactory;
 
@@ -14,19 +14,31 @@ class TaskController
     }
 
     public function register($params)
-    {
-        if ($this->isValid($params)) {
+    {       $params['createdOn'] = getdate();
+        var_dump($this->taskSQLFactory->generateInsert($params));
             return $this->conn->query($this->taskSQLFactory->generateInsert($params));
-        } else {
-            return "Error 404";
-        }
     }
 
     public function search($params)
     {
-        $result = $this->conn->query($this->taskSQLFactory->generateSelect($params));
-        var_dump($result);
-        return $result->fetchAll(PDO::FETCH_ASSOC);
+        switch (count($params)) {
+            case 0:
+                $result = $this->conn->query($this->taskSQLFactory->generateSelectAll());
+                return $result->fetchAll(PDO::FETCH_ASSOC);
+                break;
+
+            case 1:
+                $result = $this->conn->query($this->taskSQLFactory->generateSelectById($params["id"]));
+                return $result->fetch(PDO::FETCH_ASSOC);
+                break;
+
+            case 10:
+                $result = $this->conn->query($this->taskSQLFactory->generateSelect($params));
+                return $result->fetchAll(PDO::FETCH_ASSOC);
+                break;
+
+        }
+
     }
 
     public function update($params)

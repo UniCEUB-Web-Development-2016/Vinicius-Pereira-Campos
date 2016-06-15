@@ -58,4 +58,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#937991', end
 	  width: 100%;
 	  height: 100%;
 }
+.form-control .col-md-12 .block{
+  width: 100%;
+}
 

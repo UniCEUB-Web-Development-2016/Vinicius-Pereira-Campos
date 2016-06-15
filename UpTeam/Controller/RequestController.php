@@ -17,12 +17,17 @@ class RequestController
 
     private function getParams($string_params)
     {
-        $params = str_replace("?", "", $string_params);
-        $params = explode("&", $params);
-        $paramsMap = array();
-        foreach ($params as $value) {
-            $parameter = explode("=", $value);
-            $paramsMap[$parameter[0]] = $parameter[1];
+
+        if(!strlen($string_params) == 0) {
+            $params = str_replace("?", "", $string_params);
+            $params = explode("&", $params);
+            $paramsMap = array();
+            foreach ($params as $value) {
+                $parameter = explode("=", $value);
+                $paramsMap[$parameter[0]] = $parameter[1];
+            }
+        }else{
+            $paramsMap = null;
         }
         return $paramsMap;
     }

@@ -1,0 +1,25 @@
+   <h1>{{PageTitle}}</h1>
+   <div class="jumbotron col-md-9">
+   {{task.createdOn}}
+     <form name="taskForm">
+      <input type="text" class="form-control block" name="name" placeholder="Name" ng-model="task.name" ng-required="true">
+      <input type="text" class="form-control small col-md-1 " name="estimate" placeholder="Estimate" ng-model="task.estimate">
+      <select class="form-control col-md-3" ng-model="task.owner" style="width:249px;" ng-options="user.ID as user.Name + ' ' + user.lastName for user in users"> 
+        <option value="">Select the Quest's Owner</option>
+      </select>
+
+      <select class="form-control" ng-model="task.state" ng-options="s.id as s.state for s in states">
+        <option value=""> Select the Quest's State</option>
+      </select>
+
+       <select class="form-control" ng-model="task.difficulty" ng-options="item.id as item.difficulty for item in difficulties">
+         <option value=""> Select the Quest's Difficulty</option>
+       </select>
+       <select class="form-control" ng-model="task.project" ng-options="p.Id as p.name for p in projects">
+         <option value="">Select the Quest's Project</option>
+       </select>
+      <textarea cols="40" 
+      rows="5"  class="form-control" name="description" placeholder="Description" ng-model="task.description"></textarea>
+      <button class="btn btn-primary btn-block" ng-click="addTask(task)">Create Task</button>
+    </form>
+  </div>

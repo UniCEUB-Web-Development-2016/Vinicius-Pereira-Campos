@@ -45,6 +45,7 @@ class ControlManager
                 return $this->resourceController->deleteResource($request, $this->conn, $params);
                 break;
             default:
+                return "Erro 404";
                 break;
         }
     }

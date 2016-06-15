@@ -25,8 +25,23 @@ class ProjectController
 
     public function search($params)
     {
-        $result = $this->conn->query($this->$this->projectSQLFactory->generateSelect($params));
-        return $result->fetch(PDO::FETCH_ASSOC);
+        switch (count($params)) {
+            case 0:
+                $result = $this->conn->query($this->projectSQLFactory->generateSelectAll());
+                return $result->fetchAll(PDO::FETCH_ASSOC);
+                break;
+
+            case 1:
+                $result = $this->conn->query($this->projectSQLFactory->generateSelectById($params["id"]));
+                return $result->fetch(PDO::FETCH_ASSOC);
+                break;
+
+            case 6:
+                $result = $this->conn->query($this->projectSQLFactory->generateSelect($params));
+                return $result->fetchAll(PDO::FETCH_ASSOC);
+                break;
+
+        }
     }
 
     public function update($params)

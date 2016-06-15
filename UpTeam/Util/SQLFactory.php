@@ -15,23 +15,27 @@ class SQLFactory
     }
 
     public function generateInsert($params) {
-       $retorno = "INSERT INTO ".$this->table."(".$this->generateColumns(true).") VALUES (".$this->generateValues($params).")";
-        return $retorno;
+       return "INSERT INTO ".$this->table."(".$this->generateColumns().") VALUES (".$this->generateValues($params).")";
 
     }
     public function generateSelect($params) {
-        return "SELECT ".$this->generateColumns($this->objectParams)." FROM ".$this->table." WHERE ".$this->generateCriteria($params);
+        return "SELECT * FROM ".$this->table." WHERE ".$this->generateCriteria($params);;
     }
     public function generateUpdate($params, $id) {
-        return "UPDATE ".$this->table." SET ".$this->generateValues($params)." WHERE ID = ".$id;
+        return "UPDATE ".$this->table." SET ".$this->generateOverwrite($params)." WHERE ID = ".$id;
     }
     public function generateDelete($id) {
         return "UPDATE ".$this->table." SET ACTIVE = 1 WHERE ID = ".$id;
     }
-    private function generateColumns($isSelect) {
+    public function generateSelectAll(){
+        return "SELECT * FROM ".$this->table;
+    }
+    public function generateSelectById($id){
+        return "SELECT * FROM ".$this->table . " WHERE ID = ".$id;
+    }
+    private function generateColumns() {
         $columns = "";
         foreach ($this->objectParams as $key => $value) {
-            if ($key != "id" || $isSelect)
             $columns = $columns.$value.", ";
         }
         return substr($columns, 0, -2);
@@ -40,7 +44,15 @@ class SQLFactory
         $values = "";
         foreach ($params as $key => $value) {
             if ($key != "id")
-            $values = $values ."'". $value . "', ";
+            $values = $values ."'". trim($value) . "', ";
+        }
+        return substr($values, 0, -2);
+    }
+    private function generateOverwrite($params) {
+        $values = "";
+        foreach ($params as $key => $value) {
+            if ($key != "id")
+                $values = $values . $key ." = '". trim($value) . "', ";
         }
         return substr($values, 0, -2);
     }

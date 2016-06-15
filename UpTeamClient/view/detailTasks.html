@@ -1,0 +1,36 @@
+<h1>{{PageTitle}}</h1>
+<div class="jumbotron col-md-9">
+
+    <h2><b>Work Item ID: </b>{{task.Id}}</h2>
+    <div ng-repeat="item in task">{{item.id}}</div>
+    
+    <label>Name: </label>
+    <input type="text" class="form-control" placeholder="Name" ng-model="task.name" value="teste">
+
+
+    <label>Description: </label>  
+    <textarea cols="40" 
+    rows="5"  class="form-control" name="description" ng-model="task.description"></textarea>
+
+
+    <label>Estimate: </label>
+    <input type="text" class="form-control" ng-model="task.estimate">
+
+
+<label>Difficulty: </label>
+    <input type="text" class="form-control" ng-model="task.difficulty">
+
+<label>Owner: </label>
+    <input type="text" class="form-control" ng-model="task.owner">
+
+<label>State: </label>
+    <input type="text" class="form-control" ng-model="task.state">
+
+
+<p>Created by: {{task.createdBy}}</p>
+
+<p>Project: {{task.project}}</p>
+
+<p>Data de Criação:{{task.createdOn | date}}</p>
+<button class="btn btn-primary btn-block" ng-click="updateTask(task);">Update Task</button>
+</div>

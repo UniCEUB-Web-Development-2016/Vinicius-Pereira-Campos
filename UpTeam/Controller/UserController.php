@@ -26,8 +26,21 @@ class UserController
 
     public function search($params)
     {
-        $result = $this->conn->query($this->userSQLFactory->generateSelect($params));
-        return $result->fetch(PDO::FETCH_ASSOC);
+        switch (count($params)) {
+            case 0:
+                $result = $this->conn->query($this->userSQLFactory->generateSelectAll());
+                break;
+
+            case 1:
+                $result = $this->conn->query($this->userSQLFactory->generateSelectById($params["id"]));
+                break;
+
+            case 11:
+                $result = $this->conn->query($this->userSQLFactory->generateSelect($params));
+                break;
+
+        }
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function update($params)

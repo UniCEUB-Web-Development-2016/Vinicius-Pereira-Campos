@@ -2,8 +2,8 @@
  * Base structure
  */
 
-/* Move down content because we have a fixed navbar that is 50px tall */
-body {
+ /* Move down content because we have a fixed navbar that is 50px tall */
+ body {
   padding-top: 50px;
 }
 
@@ -12,7 +12,7 @@ body {
  * Global add-ons
  */
 
-.sub-header {
+ .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
@@ -21,7 +21,7 @@ body {
  * Top navigation
  * Hide default border to remove 1px line.
  */
-.navbar-fixed-top {
+ .navbar-fixed-top {
   border: 0;
 }
 
@@ -29,8 +29,8 @@ body {
  * Sidebar
  */
 
-/* Hide for mobile, show later */
-.sidebar {
+ /* Hide for mobile, show later */
+ .sidebar {
   display: none;
 }
 @media (min-width: 768px) {
@@ -71,7 +71,7 @@ body {
  * Main content
  */
 
-.main {
+ .main {
   padding: 20px;
 }
 @media (min-width: 768px) {
@@ -89,7 +89,7 @@ body {
  * Placeholder dashboard ideas
  */
 
-.placeholders {
+ .placeholders {
   margin-bottom: 30px;
   text-align: center;
 }
@@ -104,16 +104,20 @@ body {
   border-radius: 50%;
 }
 .form-control{
-  margin-left: auto;
-  margin-right: auto;
   margin-bottom: 5px;
-  width:60%;
+  margin-left: 5px;
+}
+.form-control .small{
+  width:150px;
+}
+.form-control .medium{
+ width:250px; 
 }
 .btn{
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 5px;
-  width:60%;
+  width: 150px;
 }
 .selected{
   color: #000000;
@@ -128,7 +132,7 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 .jumbotron{
-  width: 60%;
+  width: 900px;
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -137,3 +141,6 @@ body {
 .nav-stacked{
   margin-top: 20px;
 }
+.input-group{
+    margin-bottom: 5px;
+  }
