@@ -1,0 +1,13 @@
+   <h1>{{PageTitle}}</h1>
+   <div class="jumbotron col-md-9">
+     <form name="projectForm">
+      <input type="text" class="form-control block" name="name" placeholder="Name" ng-model="project.name" ng-required="true">
+      <input type="date" class="form-control" name="estimate" ng-model="project.estimatedDeadline">
+      <select class="form-control" ng-model="project.state" ng-options="t.Id as t.name for t in teams">
+        <option value="">Select the Project Teams</option>
+      </select>
+      <textarea cols="40" 
+      rows="5"  class="form-control" name="description" placeholder="Description" ng-model="project.description"></textarea>
+      <button class="btn btn-primary btn-block" ng-click="addProject(project)">Create Project</button>
+    </form>
+  </div>

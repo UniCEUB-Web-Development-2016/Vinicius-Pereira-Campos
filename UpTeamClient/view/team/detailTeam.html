@@ -1,0 +1,10 @@
+   <h1>{{PageTitle}}</h1>
+   <div class="jumbotron">
+   {{team}}
+     <form name="teamForm">
+     <label>Name:</label>
+      <input type="text" class="form-control block" name="name" placeholder="Name" ng-model="team.name" ng-required="true">
+      <button class="btn btn-primary btn-block" ng-click="updateTeam(team)">Update Team</button>
+      <button class="btn btn-danger btn-block" ng-click="deleteTeam(team.Id)">Apagar Team</button>
+    </form>
+  </div>

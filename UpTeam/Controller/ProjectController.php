@@ -3,7 +3,7 @@ include_once "Model/Project.php";
 
 class ProjectController
 {
-    private $ProjectParams = ["id", "name", "team", "createdOn", "estimatedDeadline", "description"];
+    private $ProjectParams = ["name", "team", "createdOn", "estimatedDeadline", "description"];
     private $conn;
     private $projectSQLFactory;
 
@@ -15,12 +15,10 @@ class ProjectController
 
     public function register($params)
     {
-        if ($this->isValid($params)) {
+            $params["createdOn"] = date("Y-m-d");
             return $this->conn->query($this->projectSQLFactory->generateInsert($params));
-        }
-        else {
-            return "Error 404";
-        }
+
+
     }
 
     public function search($params)

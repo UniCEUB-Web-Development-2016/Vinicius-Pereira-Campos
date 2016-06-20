@@ -14,8 +14,7 @@ class TaskController
     }
 
     public function register($params)
-    {       $params['createdOn'] = getdate();
-        var_dump($this->taskSQLFactory->generateInsert($params));
+    {       $params["createdOn"] = date("Y-m-d");
             return $this->conn->query($this->taskSQLFactory->generateInsert($params));
     }
 

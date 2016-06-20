@@ -24,7 +24,7 @@ class RequestController
             $paramsMap = array();
             foreach ($params as $value) {
                 $parameter = explode("=", $value);
-                $paramsMap[$parameter[0]] = $parameter[1];
+                $paramsMap[$parameter[0]] = rawurldecode($parameter[1]);
             }
         }else{
             $paramsMap = null;

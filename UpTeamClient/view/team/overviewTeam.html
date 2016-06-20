@@ -1,0 +1,44 @@
+          <h1 class="page-header">Dashboard</h1>
+
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="img/task.gif" width="200" height="200" class="img-responsive" alt="Task">
+              <h4>Tasks</h4>
+              <span class="text-muted">{{tasks.length}}</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="img/backlog.gif" width="200" height="200" class="img-responsive" alt="Backlog">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="img/bug.gif" width="200" height="200" class="img-responsive" alt="Bug">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="img/issue.gif" width="200" height="200" class="img-responsive" alt="Issues">
+              <h4>Label</h4>
+              <span class="text-muted">My Quest Log</span>
+            </div>
+          </div>
+
+          <h2 class="sub-header">My Teams</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Created On</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="team in teams">
+                  <td>{{team.name}}</td>
+                  <td>{{team.createdOn}}</td>
+                  <td><a class="btn btn-info" href="#/teams/details/{{team.Id}}">Details</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>

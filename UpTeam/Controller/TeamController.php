@@ -14,18 +14,29 @@ class TeamController
     }
     public function register($params)
     {
-        if ($this->isValid($params)) {
+        $params["createdOn"] = date("Y-m-d");
             return $this->conn->query($this->teamSQLFactory->generateInsert($params));
-        }
-        else {
-            return "Error 404";
-        }
     }
 
     public function search($params)
     {
-        $result = $this->conn->query($this->teamSQLFactory->generateSelect($params));
-        return $result->fetch(PDO::FETCH_ASSOC);
+        switch (count($params)) {
+            case 0:
+                $result = $this->conn->query($this->teamSQLFactory->generateSelectAll());
+                return $result->fetchAll(PDO::FETCH_ASSOC);
+                break;
+
+            case 1:
+                $result = $this->conn->query($this->teamSQLFactory->generateSelectById($params["id"]));
+                return $result->fetch(PDO::FETCH_ASSOC);
+                break;
+
+            case 4:
+                $result = $this->conn->query($this->teamSQLFactory->generateSelect($params));
+                return $result->fetchAll(PDO::FETCH_ASSOC);
+                break;
+
+        }
     }
 
     public function update($params)

@@ -19,7 +19,7 @@ class SQLFactory
 
     }
     public function generateSelect($params) {
-        return "SELECT * FROM ".$this->table." WHERE ".$this->generateCriteria($params);;
+        return "SELECT * FROM ".$this->table." WHERE ".$this->generateCriteria($params) . "AND active = 0";
     }
     public function generateUpdate($params, $id) {
         return "UPDATE ".$this->table." SET ".$this->generateOverwrite($params)." WHERE ID = ".$id;
@@ -28,10 +28,10 @@ class SQLFactory
         return "UPDATE ".$this->table." SET ACTIVE = 1 WHERE ID = ".$id;
     }
     public function generateSelectAll(){
-        return "SELECT * FROM ".$this->table;
+        return "SELECT * FROM ".$this->table . " WHERE active = 0";
     }
     public function generateSelectById($id){
-        return "SELECT * FROM ".$this->table . " WHERE ID = ".$id;
+        return "SELECT * FROM ".$this->table . " WHERE ID = ".$id . "AND active = 0";
     }
     private function generateColumns() {
         $columns = "";

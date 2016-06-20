@@ -1,0 +1,48 @@
+          <h1 class="page-header">Dashboard</h1>
+
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="img/task.gif" width="200" height="200" class="img-responsive" alt="Task">
+              <h4>Tasks</h4>
+              <span class="text-muted">{{tasks.length}}</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="img/backlog.gif" width="200" height="200" class="img-responsive" alt="Backlog">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="img/bug.gif" width="200" height="200" class="img-responsive" alt="Bug">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="img/issue.gif" width="200" height="200" class="img-responsive" alt="Issues">
+              <h4>Label</h4>
+              <span class="text-muted">My Quest Log</span>
+            </div>
+          </div>
+
+          <h2 class="sub-header">My Quest Log</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Project</th>
+                  <th>State</th>
+                  <th>Difficulty</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="task in tasks">
+                  <td>{{task.Id}}</td>
+                  <td>{{task.name}}</td>
+                  <td>{{task.project}}</td>
+                  <td>{{task.state}}</td>
+                  <td>{{task.difficulty}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
