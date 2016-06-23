@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="UpTeam">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <script type="text/javascript" src="../lib/sweetAlert/sweetalert2.min.js" ></script>
+  <link rel="stylesheet" type="text/css" href="../lib/sweetAlert/sweetalert2.min.css">
+
+  <script type="text/javascript" src="../lib/angular.min.js" ></script>
+  <script type="text/javascript" src="../lib/angular-route.min.js"></script>
+  <script type="text/javascript" src="../js/app.js" ></script>
+  <script type="text/javascript" src="../lib/angular-cookies.min.js"></script>
+  <script type="text/javascript" src="../js/config/routeConfig.js" ></script>
+
+  <script type="text/javascript" src="../js/Controllers/task/overviewTaskCtrl.js" ></script>
+  <script type="text/javascript" src="../js/Controllers/task/createTaskCtrl.js" ></script>
+  <script type="text/javascript" src="../js/Controllers/task/detailsTaskCtrl.js" ></script>
+  <script type="text/javascript" src="../js/Controllers/viewCtrl.js"></script>
+
+
+
+  <script type="text/javascript" src="../js/Controllers/project/createProjectCtrl.js" ></script>
+  <script type="text/javascript" src="../js/Controllers/project/overviewProjectCtrl.js" ></script>
+  <script type="text/javascript" src="../js/Controllers/project/detailsProjectCtrl.js" ></script>
+
+  <script type="text/javascript" src="../js/Controllers/team/overviewTeamCtrl.js"></script>
+  <script type="text/javascript" src="../js/Controllers/team/createTeamCtrl.js"></script>
+  <script type="text/javascript" src="../js/Controllers/team/detailsTeamCtrl.js"></script>
+
+  <script type="text/javascript" src="../js/Services/taskAPIService.js" ></script>
+  <script type="text/javascript" src="../js/Services/userAPIService.js" ></script>
+  <script type="text/javascript" src="../js/Services/stateAPIService.js" ></script>
+  <script type="text/javascript" src="../js/Services/difficultyAPIService.js" ></script>
+  <script type="text/javascript" src="../js/Services/projectAPIService.js" ></script>
+  <script type="text/javascript" src="../js/Services/teamAPIService.js"></script>
+  <script type="text/javascript" src="../js/Services/loginAPIService.js" ></script>
+
+  <script type="text/javascript" src="../js/Value/configValue.js" ></script>
+
+
+  <title>Up Team!</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/dashboard.css" rel="stylesheet">
+
+</head>
+
+<body >
+ <nav ng-include="'components/navbar.html'"></nav>
+
+
+ <div class="container-fluid">
+  <div class="row">
+  <div ng-include="'components/lateralbar.html'"></div>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" >
+    <div ng-view></div>
+  </div>
+  </div>
+</div>
+
+
+</div>
+</body>
+</html>

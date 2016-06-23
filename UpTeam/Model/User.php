@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: vpcam
- * Date: 13/04/2016
- * Time: 21:04
- */
+
 class User
 {
     private $name;
@@ -35,17 +30,6 @@ class User
         $this->setTrophies($trophies);
         $this->setLevel($level);
 
-
-    }
-    public function __construct1($name, $lastName, $password, $email, $role, $birthday, $alias)
-    {
-        $this->setName($name);
-        $this->setLastName($lastName);
-        $this->setPassword($password);
-        $this->setEmail($email);
-        $this->setRole($role);
-        $this->setBirthday($birthday);
-        $this->setAlias($alias);
 
     }
 

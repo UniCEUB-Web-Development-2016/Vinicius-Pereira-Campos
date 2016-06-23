@@ -10,11 +10,12 @@ class TaskController
     public function __construct($conn)
     {
         $this->conn = $conn;
-        $this->taskSQLFactory = new SQLFactory("Task", $this->TeamParams);
+        $this->taskSQLFactory = new SQLFactory("Task", $this->TeamParams, $conn);
     }
 
     public function register($params)
     {       $params["createdOn"] = date("Y-m-d");
+            $params["createdBy"] = $_SESSION["user"]["ID"];
             return $this->conn->query($this->taskSQLFactory->generateInsert($params));
     }
 

@@ -33,8 +33,8 @@
  				'Sorry, we can\'t delete your team.',
  				'error'
  				);
- 			})
+ 			});
  			
- 		})
- 	}
+ 		});
+ 	};
  });

@@ -9,12 +9,13 @@ class TeamController
 
     public function __construct($conn)
     {   
-        $this->teamSQLFactory = new SQLFactory("team", $this->TeamParams);
+        $this->teamSQLFactory = new SQLFactory("team", $this->TeamParams, $conn);
         $this->conn = $conn;
     }
     public function register($params)
     {
         $params["createdOn"] = date("Y-m-d");
+        $params["createdBy"] = $_SESSION["user"]["ID"];
             return $this->conn->query($this->teamSQLFactory->generateInsert($params));
     }
 

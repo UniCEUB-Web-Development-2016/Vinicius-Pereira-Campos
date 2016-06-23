@@ -1,1 +1,1 @@
-angular.module("UpTeam",["ngRoute"]);
+angular.module("UpTeam",['ngRoute', 'ngCookies']);

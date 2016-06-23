@@ -7,6 +7,7 @@ include_once "Controller/ProjectController.php";
 include_once "Controller/DifficultyController.php";
 include_once "Controller/LoginController.php";
 include_once "Controller/StateController.php";
+include_once "Controller/RolesController.php";
 
 class ResourceController
 {
@@ -18,7 +19,8 @@ class ResourceController
             "project" => "ProjectController",
             "difficulty" => "DifficultyController",
             "login" => "LoginController",
-            "state" => "StateController"
+            "state" => "StateController",
+            "roles" => "RolesController"
         ];
     private function getController($resource) {
         return $this->controlMap[strtolower($resource)];

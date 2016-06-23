@@ -1,8 +1,11 @@
 angular.module("UpTeam").config(function($routeProvider) {
 	$routeProvider.when("/tasks/list", {
-		templateUrl: "view/task/listTasks.html",
+		templateUrl: "task/listTasks.html",
 		controller:"listTaskCtrl",
 		resolve:{
+			login: function (loginAPI) {
+				return loginAPI.isLogged();
+			},
 			tasks: function(taskAPI){
 				return taskAPI.getTasks();
 			}
@@ -10,9 +13,12 @@ angular.module("UpTeam").config(function($routeProvider) {
 	});
 
 	$routeProvider.when("/tasks", {
-		templateUrl: "view/task/overviewTasks.html",
+		templateUrl: "task/overviewTasks.html",
 		controller:"overviewTaskCtrl",
 		resolve:{
+			login: function (loginAPI) {
+				return loginAPI.isLogged();
+			},
 			tasks: function(taskAPI){
 				return taskAPI.getTasks();
 			},
@@ -29,9 +35,12 @@ angular.module("UpTeam").config(function($routeProvider) {
 	});
 
 	$routeProvider.when("/tasks/create",{
-		templateUrl:"view/task/createTasks.html",
+		templateUrl:"task/createTasks.html",
 		controller:"createTaskCtrl",
 		resolve:{
+			login: function (loginAPI) {
+				return loginAPI.isLogged();
+			},
 			user: function(userAPI){
 				return userAPI.getUsers();
 			},
@@ -48,9 +57,12 @@ angular.module("UpTeam").config(function($routeProvider) {
 	});
 
 	$routeProvider.when("/tasks/details/:id",{
-		templateUrl:"view/task/detailTasks.html",
+		templateUrl:"task/detailTasks.html",
 		controller:"detailsTaskCtrl",
 		resolve:{
+			login: function (loginAPI) {
+				return loginAPI.isLogged();
+			},
 			task: function(taskAPI, $route){
 				return taskAPI.getTask($route.current.params.id);
 			},
@@ -70,9 +82,12 @@ angular.module("UpTeam").config(function($routeProvider) {
 	});
 
 	$routeProvider.when("/projects", {
-		templateUrl: "view/project/overviewProject.html",
+		templateUrl: "project/overviewProject.html",
 		controller:"overviewProjectCtrl",
 		resolve:{
+			login: function (loginAPI) {
+				return loginAPI.isLogged();
+			},
 			tasks: function(taskAPI){
 				return taskAPI.getTasks();
 			},
@@ -80,16 +95,19 @@ angular.module("UpTeam").config(function($routeProvider) {
 				return projectAPI.getProjects();
 			},
 			user: function(userAPI){
-				return userAPI.getUsers();		
+				return userAPI.getUsers();
 			}
 
 		}
 	});
 
 	$routeProvider.when("/projects/create",{
-		templateUrl: "view/project/createProject.html",
+		templateUrl: "project/createProject.html",
 		controller: "createProjectCtrl",
 		resolve:{
+			login: function (loginAPI) {
+				return loginAPI.isLogged();
+			},
 			team: function(teamAPI){
 				return teamAPI.getTeams();
 			}
@@ -97,9 +115,12 @@ angular.module("UpTeam").config(function($routeProvider) {
 	});
 
 	$routeProvider.when("/projects/details/:id",{
-		templateUrl: "view/project/detailProject.html",
+		templateUrl: "project/detailProject.html",
 		controller: "detailsProjectCtrl",
 		resolve:{
+			login: function (loginAPI) {
+				return loginAPI.isLogged();
+			},
 			project: function(projectAPI, $route){
 				return projectAPI.getProject($route.current.params.id);
 			},
@@ -110,9 +131,12 @@ angular.module("UpTeam").config(function($routeProvider) {
 	});
 
 	$routeProvider.when("/teams",{
-		templateUrl:"view/team/overviewTeam.html",
+		templateUrl:"team/overviewTeam.html",
 		controller:"overviewTeamCtrl",
 		resolve:{
+			login: function (loginAPI) {
+				return loginAPI.isLogged();
+			},
 			teams: function(teamAPI){
 				return teamAPI.getTeams();
 			}
@@ -120,14 +144,22 @@ angular.module("UpTeam").config(function($routeProvider) {
 	});
 
 	$routeProvider.when("/teams/create",{
-		templateUrl:"view/team/createTeam.html",
-		controller:"createTeamCtrl"
+		templateUrl:"team/createTeam.html",
+		controller:"createTeamCtrl",
+		resolve:{
+			login: function (loginAPI) {
+				return loginAPI.isLogged();
+			}
+		}
 	});
 
 	$routeProvider.when("/teams/details/:id",{
-		templateUrl: "view/team/detailTeam.html",
+		templateUrl: "team/detailTeam.html",
 		controller: "detailsTeamCtrl",
 		resolve:{
+			login: function (loginAPI) {
+				return loginAPI.isLogged();
+			},
 			team: function (teamAPI, $route) {
 				return teamAPI.getTeam($route.current.params.id);
 			}

@@ -1,27 +1,27 @@
 <?php
 include "Model/User.php";
-include "Util/DbConnector.php";
 include_once "Util/SQLFactory.php";
 
 class UserController
 {
-    private $UserParams = ["id", "name", "lastName", "password", "email", "role", "birthday", "experience", "alias", "trophies", "level", "cpf"];
+    private $UserParams = ["name","password", "email", "role", "birthday", "experience","level", "health"];
     private $userSQLFactory;
     private $conn;
 
     public function __construct($conn)
     {   
-        $this->userSQLFactory = new SQLFactory("user", $this->UserParams);
+        $this->userSQLFactory = new SQLFactory("user", $this->UserParams, $conn);
         $this->conn = $conn;
     }
 
     public function register($params)
     {
-        if ($this->isValid($params)) {
+
+            $params["experience"] = 0;
+            $params["level"] = 0;
+            $params["Health"] = 100;
             return $this->conn->query($this->userSQLFactory->generateInsert($params));
-        } else {
-            return "Error 404";
-        }
+
     }
 
     public function search($params)
@@ -35,7 +35,7 @@ class UserController
                 $result = $this->conn->query($this->userSQLFactory->generateSelectById($params["id"]));
                 break;
 
-            case 11:
+            default :
                 $result = $this->conn->query($this->userSQLFactory->generateSelect($params));
                 break;
 

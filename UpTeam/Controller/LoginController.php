@@ -1,6 +1,5 @@
 <?php
 
-include"UserController.php";
 
 class LoginController
 {
@@ -11,55 +10,45 @@ class LoginController
     public function __construct($conn)
     {
         $this->conn = $conn;
-        $this->loginSQLFactory =  new SQLFactory("user", $this->LoginParams);
+        $this->loginSQLFactory = new SQLFactory("user", $this->LoginParams, $conn);
+        session_cache_expire(30);
+        $cache_expire = session_cache_expire();
+        session_start();
     }
 
     public function register($params)
     {
 
-        return $this->conn->query($this->projectSQLFactory->generateInsert($params));
-
-
+        $result = $this->conn->query($this->loginSQLFactory->generateSelect($params));
+        $user = $result->fetch(PDO::FETCH_ASSOC);
+        if (!$user) {
+            $return["isLogged"] = false;
+            $return["message"] = "Error 403: Forbidden";
+            return $return;
+        } else {
+            $_SESSION["isLogged"] = true;
+            $user["isLogged"] = $_SESSION["isLogged"];
+            $_SESSION["user"] = $user;
+            return $user;
+        }
     }
 
     public function search($params)
     {
-        switch (count($params)) {
-            case 0:
-                $result = $this->conn->query($this->projectSQLFactory->generateSelectAll());
-                return $result->fetchAll(PDO::FETCH_ASSOC);
-                break;
-
-            case 1:
-                $result = $this->conn->query($this->projectSQLFactory->generateSelectById($params["id"]));
-                return $result->fetch(PDO::FETCH_ASSOC);
-                break;
-
-            case 6:
-                $result = $this->conn->query($this->projectSQLFactory->generateSelect($params));
-                return $result->fetchAll(PDO::FETCH_ASSOC);
-                break;
-
-        }
+        return $_SESSION["isLogged"];
     }
 
     public function update($params)
     {
-        return $this->conn->query($this->projectSQLFactory->generateUpdate($params, $params["id"]));
+        return $_SESSION["user"];
     }
 
     public function delete($params)
     {
-        return $this->conn->query($this->projectSQLFactory->generateDelete($params["id"]));
+        unset($_SESSION["user"]);
+        unset($_SESSION["isLogged"]);
+        return session_destroy();
     }
 
-    private function isValid($params)
-    {
-        $keys = array_keys($params);
-        $diff = array_intersect($keys, $this->ProjectParams);
-        if (count($diff) == count($params)) {
-            return true;
-        }
-        return false;
-    }
+
 }

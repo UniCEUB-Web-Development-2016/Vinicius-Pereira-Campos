@@ -1,14 +1,6 @@
 angular.module("UpTeam").factory ("taskAPI",function($http, config){
 	var _getTasks = function(){
-		return $http.get(config.baseUrl + "task/?id=&name="   
-			+ "&description="  
-			+ "&estimate=" 
-			+ "&difficulty=" 
-			+ "&owner=1" 
-			+ "&createdBy=" 
-			+ "&state=" 
-			+ "&project=" 
-			+ "&createdOn=" )
+		return $http.get(config.baseUrl + "task/" );
 	};
 
 	var _setTask = function(task){
@@ -34,17 +26,6 @@ angular.module("UpTeam").factory ("taskAPI",function($http, config){
 			+ "&owner=" + task.owner 
 			+ "&state=" + task.state)	
 	};
-	var _getDate = function () {
-		var yyyy = today.getYear();
-		if(dd<10){
-			dd='0'+dd
-		} 
-		if(mm<10){
-			mm='0'+mm
-		} 
-		var today = dd+'/'+mm+'/'+yyyy;
-		return today;
-	}
 	return {
 		getTasks: _getTasks,
 		setTask: _setTask,

@@ -17,7 +17,7 @@ class DifficultyController
     public function __construct($conn)
     {
         $this->conn = $conn;
-        $this->difficultySQLFactory = new SQLFactory("Difficulty", $this->DifficultyParams);
+        $this->difficultySQLFactory = new SQLFactory("Difficulty", $this->DifficultyParams, $conn);
     }
 
 
